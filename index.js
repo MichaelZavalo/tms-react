@@ -1,142 +1,154 @@
-//ES 5 class Person
-function Person(arg) {
-    if (arg !== 0) {
-        this.arg = arg;
-    }
+//Basic class InitialClass
+function InititalClass(arg) {
+    if (arg[0] !== '' || arg !== 0)
+    this.arg = arg;
+}
+//method setSum
+InititalClass.prototype.setSum = function(newSum) {
+    return this.arg = newSum;
+}
+// объявление переменной от класс InitialClass
+let init = new InititalClass(2);
 
-    Person.prototype.plus = function (...n) {
-        let sum = this.arg;
-        for (let i = 0; i < arguments.length; i++) {
-            sum += n[i];
-        }
-        return this.arg = sum;
-    };
 
-    Person.prototype.minus = function (...n) {
-        let residual = this.arg;
-        for (let i = 0; i < arguments.length; i++) {
-            residual -= n[i];
-        }
-        return this.arg = residual;
-    };
-
-    Person.prototype.multiply = function (n) {
-        let mult = this.arg;
-        mult = this.arg * n;
-        return this.arg = mult;
-    };
-
-    Person.prototype.divide = function (n) {
-        let divide = this.arg;
-        divide /= n;
-        return this.arg = divide;
-    };
-
-    Person.prototype.mod = function (n) {
-        let mod = this.arg % n;
-        return this.arg = mod;
-    };
-
-    Person.prototype.get = function () {
-        return `-> ${this.arg}`;
-    };
-
-    Person.prototype.random = function (from, to) {
+//ES 5 class Person child InitialClass
+function IntBuilder(arg) {
+    InititalClass.call(this, arg);
+    //static method random
+    IntBuilder.random = function (from, to) {
         from = Math.ceil(from);
         to = Math.floor(to);
         return Math.floor(Math.random() * (to - from)) + from;
     };
 };
 
+IntBuilder.prototype = Object.create(InititalClass.prototype);
+IntBuilder.prototype.constructor = IntBuilder;
+//method plus
+IntBuilder.prototype.plus = function (...n) {
+    let sum = this.arg;
+    for (let i = 0; i < arguments.length; i++) {
+        sum += n[i];
+    }
+    return this.arg = sum;
+};
+//method minus
+IntBuilder.prototype.minus = function (...n) {
+    let residual = this.arg;
+    for (let i = 0; i < arguments.length; i++) {
+        residual -= n[i];
+    }
+    return this.arg = residual;
+};
+//method myltiply
+IntBuilder.prototype.multiply = function (n) {
+    let mult = this.arg;
+    mult = this.arg * n;
+    return this.arg = mult;
+};
+//method divide
+IntBuilder.prototype.divide = function (n) {
+    let divide = this.arg;
+    divide /= n;
+    return this.arg = divide;
+};
+//method mod
+IntBuilder.prototype.mod = function (n) {
+    let mod = this.arg % n;
+    return this.arg = mod;
+};
+//method get
+IntBuilder.prototype.get = function () {
+    return `-> ${this.arg}`;
+};
+
+let build = new IntBuilder(10);
+//class Admin child class IntBuilder
 function Admin(arg) {
-    Person.call(this, arg);
+    IntBuilder.call(this, arg);
 }
-Admin.prototype = Object.create(Person.prototype);
+Admin.prototype = Object.create(IntBuilder.prototype);
 Admin.prototype.constructor = Admin;
 Admin.prototype.login = function () {
     return `This is you login "${this.arg}"`;
 }
-
+//class User child class IntBuilder
 function User(arg) {
-    Person.call(this, arg);
+    IntBuilder.call(this, arg);
 }
-User.prototype = Object.create(Person.prototype);
+User.prototype = Object.create(IntBuilder.prototype);
 User.prototype.constructor = User;
 User.prototype.aler = function () {
     return alert(this.arg);
 }
 
 const thirdUser = new User(0);
-const admin = new Admin(10);
 const secondAdmin = new Admin(20);
-const mainUser = new User(25);
 const secondUSer = new User(35);
 
 
-//ES 6 StringBuilder
-class StringWith {
-    constructor(str) {
-        if (str[0] !== '') {
-            this.str = str;
-        }
+//ES 6 StringBuilder child class InitialClass
+class StringBuilder extends InititalClass {
+    constructor(arg) {
+        super(arg)
     }
 
     plus(...str) {
-        let sum = this.str;
+        let sum = this.arg;
         for (let i = 0; i < arguments.length; i++) {
             sum += str[i];
         }
-        return this.str = sum;
+        return this.arg = sum;
     }
 
     minus(n) {
-        let str = this.str;
+        let str = this.arg;
         str = str.substr(0, str.length - n);
-        return this.str = str;
+        return this.arg = str;
     }
 
     multiply(int) {
-        let str = this.str;
+        let str = this.arg;
         str = str.repeat(int);
-        return this.str = str;
+        return this.arg = str;
     }
 
     divide(n) {
-        let str = this.str;
+        let str = this.arg;
         let k = Math.floor(str.length / n);
         str = str.substring(0, k);
-        return this.str = str;
+        return this.arg = str;
     }
 
     remove(str) {
-        let string = this.str,
+        let string = this.arg,
             result = "";
         for (let i = 0; i <= string.length - 1; i++) {
             if (string[i].toLowerCase() !== str.toLowerCase()) {
                 result = `${result}${string[i]}`;
             }
         }
-        return this.str = result;
+        return this.arg = result;
     }
 
     sub(from, n) {
-        let str = this.str;
+        let str = this.arg;
         str = str.substr(from, n);
-        return this.str = str;
+        return this.arg = str;
     }
 
     get() {
-        return `-> '${this.str}'`;
+        return `-> '${this.arg}'`;
     }
 
 }
 
-let element = new StringWith("Hello");
+let element = new StringBuilder("Hello");
 
-
-class StringWithAuthor extends StringWith {
-    constructor(str, authorName) {
-        super(str);
+//class StringWithAuthor child class StringBuilder
+class StringWithAuthor extends StringBuilder {
+    constructor(arg, authorName) {
+        super(arg);
         this.authorName = authorName;
     }
 
@@ -145,13 +157,13 @@ class StringWithAuthor extends StringWith {
     }
 
 }
-
+// объявление переменной от класс StringWithAuthor
 let childElement = new StringWithAuthor("Hello", "Michael Richarlson");
 
-
-class StringAndSumOfCopies extends StringWith {
-    constructor(str, sumOfCopies){
-        super(str,sumOfCopies);
+//class StringAndSumOfCopies child class StringBuilder
+class StringAndSumOfCopies extends StringBuilder {
+    constructor(arg, sumOfCopies) {
+        super(arg, sumOfCopies);
         this.sumOfCopies = sumOfCopies;
     }
 
@@ -162,5 +174,5 @@ class StringAndSumOfCopies extends StringWith {
     }
 
 }
-
-let copies = new StringAndSumOfCopies("How are you?",50);
+// объявление переменной от класс StringAndSumOfCopies
+let copies = new StringAndSumOfCopies("How are you?", 50);
