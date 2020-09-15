@@ -1,11 +1,12 @@
 //Basic class InitialClass
 function InititalClass(arg) {
     if (arg[0] !== '' || arg !== 0)
-    this.arg = arg;
+        this.arg = arg;
 }
 //method setSum
-InititalClass.prototype.setSum = function(newSum) {
-    return this.arg = newSum;
+InititalClass.prototype.setSum = function (newSum) {
+    this.arg = newSum
+    return this;
 }
 // объявление переменной от класс InitialClass
 let init = new InititalClass(2);
@@ -30,7 +31,8 @@ IntBuilder.prototype.plus = function (...n) {
     for (let i = 0; i < arguments.length; i++) {
         sum += n[i];
     }
-    return this.arg = sum;
+    this.arg = sum
+    return this;
 };
 //method minus
 IntBuilder.prototype.minus = function (...n) {
@@ -38,24 +40,28 @@ IntBuilder.prototype.minus = function (...n) {
     for (let i = 0; i < arguments.length; i++) {
         residual -= n[i];
     }
-    return this.arg = residual;
+    this.arg = residual
+    return this;
 };
 //method myltiply
 IntBuilder.prototype.multiply = function (n) {
     let mult = this.arg;
     mult = this.arg * n;
-    return this.arg = mult;
+    this.arg = mult
+    return this;
 };
 //method divide
 IntBuilder.prototype.divide = function (n) {
     let divide = this.arg;
     divide /= n;
-    return this.arg = divide;
+    this.arg = divide;
+    return this;
 };
 //method mod
 IntBuilder.prototype.mod = function (n) {
     let mod = this.arg % n;
-    return this.arg = mod;
+    this.arg = mod;
+    return this;
 };
 //method get
 IntBuilder.prototype.get = function () {
@@ -63,6 +69,13 @@ IntBuilder.prototype.get = function () {
 };
 
 let build = new IntBuilder(10);
+build
+    .plus(2, 3, 2)
+    .minus(1, 2)
+    .multiply(2)
+    .divide(4)
+    .mod(3)
+    .get();
 //class Admin child class IntBuilder
 function Admin(arg) {
     IntBuilder.call(this, arg);
@@ -98,26 +111,30 @@ class StringBuilder extends InititalClass {
         for (let i = 0; i < arguments.length; i++) {
             sum += str[i];
         }
-        return this.arg = sum;
+        this.arg = sum;
+        return this;
     }
 
     minus(n) {
         let str = this.arg;
         str = str.substr(0, str.length - n);
-        return this.arg = str;
+        this.arg = str;
+        return this;
     }
 
     multiply(int) {
         let str = this.arg;
         str = str.repeat(int);
-        return this.arg = str;
+        this.arg = str;
+        return this;
     }
 
     divide(n) {
         let str = this.arg;
         let k = Math.floor(str.length / n);
         str = str.substring(0, k);
-        return this.arg = str;
+        this.arg = str;
+        return this;
     }
 
     remove(str) {
@@ -128,13 +145,15 @@ class StringBuilder extends InititalClass {
                 result = `${result}${string[i]}`;
             }
         }
-        return this.arg = result;
+        this.arg = result;
+        return this;
     }
 
     sub(from, n) {
         let str = this.arg;
         str = str.substr(from, n);
-        return this.arg = str;
+        this.arg = str;
+        return this;
     }
 
     get() {
@@ -144,6 +163,14 @@ class StringBuilder extends InititalClass {
 }
 
 let element = new StringBuilder("Hello");
+element
+    .plus(' all', '!')
+    .minus(4)
+    .multiply(3)
+    .divide(4)
+    .remove('l')
+    .sub(1,1)
+    .get();
 
 //class StringWithAuthor child class StringBuilder
 class StringWithAuthor extends StringBuilder {
@@ -153,7 +180,8 @@ class StringWithAuthor extends StringBuilder {
     }
 
     setName(newName) {
-        return this.authorName = newName;
+        this.authorName = newName;
+        return this;
     }
 
 }
