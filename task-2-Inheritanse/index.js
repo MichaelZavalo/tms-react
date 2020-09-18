@@ -1,7 +1,6 @@
 //Basic class InitialClass
 function InititalClass(arg) {
-    if (arg[0] !== '' || arg !== 0)
-        this.arg = arg;
+    this.arg = arg;
 }
 //method setSum
 InititalClass.prototype.setSum = function (newSum) {
@@ -13,14 +12,8 @@ let init = new InititalClass(2);
 
 
 //ES 5 class Person child InitialClass
-function IntBuilder(arg) {
+function IntBuilder(arg = 0) {
     InititalClass.call(this, arg);
-    //static method random
-    IntBuilder.random = function (from, to) {
-        from = Math.ceil(from);
-        to = Math.floor(to);
-        return Math.floor(Math.random() * (to - from)) + from;
-    };
 };
 
 IntBuilder.prototype = Object.create(InititalClass.prototype);
@@ -67,6 +60,12 @@ IntBuilder.prototype.mod = function (n) {
 IntBuilder.prototype.get = function () {
     return `-> ${this.arg}`;
 };
+//static method random
+IntBuilder.prototype.random = function (from, to) {
+    from = Math.ceil(from);
+    to = Math.floor(to);
+    return Math.floor(Math.random() * (to - from)) + from;
+};
 
 let build = new IntBuilder(10);
 build
@@ -76,33 +75,10 @@ build
     .divide(4)
     .mod(3)
     .get();
-//class Admin child class IntBuilder
-function Admin(arg) {
-    IntBuilder.call(this, arg);
-}
-Admin.prototype = Object.create(IntBuilder.prototype);
-Admin.prototype.constructor = Admin;
-Admin.prototype.login = function () {
-    return `This is you login "${this.arg}"`;
-}
-//class User child class IntBuilder
-function User(arg) {
-    IntBuilder.call(this, arg);
-}
-User.prototype = Object.create(IntBuilder.prototype);
-User.prototype.constructor = User;
-User.prototype.aler = function () {
-    return alert(this.arg);
-}
-
-const thirdUser = new User(0);
-const secondAdmin = new Admin(20);
-const secondUSer = new User(35);
-
 
 //ES 6 StringBuilder child class InitialClass
 class StringBuilder extends InititalClass {
-    constructor(arg) {
+    constructor(arg = "") {
         super(arg)
     }
 
@@ -169,38 +145,5 @@ element
     .multiply(3)
     .divide(4)
     .remove('l')
-    .sub(1,1)
+    .sub(1, 1)
     .get();
-
-//class StringWithAuthor child class StringBuilder
-class StringWithAuthor extends StringBuilder {
-    constructor(arg, authorName) {
-        super(arg);
-        this.authorName = authorName;
-    }
-
-    setName(newName) {
-        this.authorName = newName;
-        return this;
-    }
-
-}
-// объявление переменной от класс StringWithAuthor
-let childElement = new StringWithAuthor("Hello", "Michael Richarlson");
-
-//class StringAndSumOfCopies child class StringBuilder
-class StringAndSumOfCopies extends StringBuilder {
-    constructor(arg, sumOfCopies) {
-        super(arg, sumOfCopies);
-        this.sumOfCopies = sumOfCopies;
-    }
-
-    getAllCopiesInTheWolrd(numberOfСountries) {
-        let mult = this.sumOfCopies;
-        mult *= numberOfСountries;
-        return mult;
-    }
-
-}
-// объявление переменной от класс StringAndSumOfCopies
-let copies = new StringAndSumOfCopies("How are you?", 50);
