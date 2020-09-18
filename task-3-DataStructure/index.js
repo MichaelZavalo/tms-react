@@ -9,7 +9,7 @@ class Noda {
     }
 }
 //for example
-let node = new Noda(1,"one");
+let node = new Noda(1, "one");
 // create class BinarySearchThree
 class BinarySearchTree {
     constructor() {
@@ -30,7 +30,7 @@ class BinarySearchTree {
         }
         return this;
     }
-
+    //вспомогательный метод для insert
     insertNode(node, newNode) {
         if (newNode.key < node.key) {
             if (node.left === null) {
@@ -47,35 +47,44 @@ class BinarySearchTree {
         }
     }
 
-    inOrderTraverse() {
-        if (node != null) {
-            this.inOrderTraverse(node.left, callback);
-            callback(node.data);
-            this.inOrderTraverse(node.right, callback);
-        }
-    }
     //doesn't work
     delete(key) {
 
         return this;
     }
-    //doesn't work
-    search(key) {
-        if (key === null) {
-            return null;
-        } else if (key < node.key) {
-            return this.search(node.left, key);
-        } else if (key > this.key) {
-            return this.search(node.right, key);
-        } else {
-            return this.value;
+
+    searchByKey(node, key) {
+        if (node === null) {
+        return null;
         }
+        
+        if (node.key === key) {
+        return node.value;
+        }
+    
+        return searchByKey(node.left, key) || searchByKey(node.right, key);
+    }
+
+    //doesn't work
+    search(node) {
+        return this.searchByKey(this.root, key);
     }
     //доделать 
     contains(value) {
-        if(node.value === value){
-            return true;    
-        } else this.inOrderTraverse
+        if (root === null) {
+            return false;
+        }
+
+        if (root.value === value) {
+            return true;
+        }
+
+        if (Noda.value > value) {
+            return this.contains(root.right.value, value);
+        }
+        if (Noda.value < value) {
+            return this.contains(root.left.value, value);
+        }
     }
     //doesn't work
     traverse(order) {
