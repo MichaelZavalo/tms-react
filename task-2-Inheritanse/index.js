@@ -61,11 +61,13 @@ IntBuilder.prototype.get = function () {
     return `-> ${this.arg}`;
 };
 //static method random
-IntBuilder.prototype.random = function (from, to) {
+IntBuilder.random = function (from, to) {
     from = Math.ceil(from);
     to = Math.floor(to);
     return Math.floor(Math.random() * (to - from)) + from;
 };
+
+IntBuilder.random(10, 100);
 
 let build = new IntBuilder(10);
 build
