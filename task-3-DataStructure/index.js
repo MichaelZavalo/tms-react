@@ -13,20 +13,20 @@ let node = new Noda(1, "one");
 // create class BinarySearchThree
 class BinarySearchTree {
     constructor() {
-        this.root = null;
+        this.rootNode = null;
     }
     //done
     root() {
-        return this.root;
+        return this.rootNode;
     }
     // done
     insert(key, value) {
         let newNode = new Noda(key, value);
 
-        if (this.root === null) {
-            this.root = newNode;
+        if (this.rootNode === null) {
+            this.rootNode = newNode;
         } else {
-            this.insertNode(this.root, newNode);
+            this.insertNode(this.rootNode, newNode);
         }
         return this;
     }
@@ -49,11 +49,11 @@ class BinarySearchTree {
 
     //doesn't work
     delete(key) {
-
+        
         return this;
     }
 
-    searchByKey(node, key) {
+    indNodeByKey(node, key) {
         if (node === null) {
         return null;
         }
@@ -62,30 +62,32 @@ class BinarySearchTree {
         return node.value;
         }
     
-        return searchByKey(node.left, key) || searchByKey(node.right, key);
+        if (node.key > key) {
+            return this.indNodeByKey(node.left, key)
+        } else return this.indNodeByKey(node.right, key)
     }
 
     //doesn't work
-    search(node) {
-        return this.searchByKey(this.root, key);
+    search(key) {
+        return this.indNodeByKey(this.root(), key);
     }
+    
     //доделать 
     contains(value) {
-        if (root === null) {
-            return false;
-        }
+        return this.indNodeByValue(this.root(), value);
+    }
 
-        if (root.value === value) {
+    indNodeByValue(node,value) {
+        if (node === null) {
+            return false   
+        }
+        if (node.value === value) {
             return true;
         }
 
-        if (Noda.value > value) {
-            return this.contains(root.right.value, value);
-        }
-        if (Noda.value < value) {
-            return this.contains(root.left.value, value);
-        }
+        return this.indNodeByValue(node.left, value) || this.indNodeByValue(node.right, value);
     }
+
     //doesn't work
     traverse(order) {
 
@@ -98,6 +100,7 @@ class BinarySearchTree {
 
 const bst = new BinarySearchTree();
 bst.insert(2, 'two').insert(1, 'one').insert(3, 'three');
+
 /* 
 //examples
 
@@ -142,3 +145,4 @@ bst.traverse(false); // ['three', 'two', 'one']
 
 bst._root.key = 0;
 bst.verify(); //false */
+
