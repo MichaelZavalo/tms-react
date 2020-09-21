@@ -53,39 +53,40 @@ class BinarySearchTree {
         return this;
     }
 
-    indNodeByKey(node, key) {
+    //вспомогательный метод для search
+    findNodeByKey(node, key) {
         if (node === null) {
-        return null;
+            return null;
         }
-        
+
         if (node.key === key) {
-        return node.value;
+            return node.value;
         }
-    
+
         if (node.key > key) {
-            return this.indNodeByKey(node.left, key)
-        } else return this.indNodeByKey(node.right, key)
+            return this.findNodeByKey(node.left, key)
+        } else return this.findNodeByKey(node.right, key)
     }
 
-    //doesn't work
+    //done
     search(key) {
-        return this.indNodeByKey(this.root(), key);
-    }
-    
-    //доделать 
-    contains(value) {
-        return this.indNodeByValue(this.root(), value);
+        return this.findNodeByKey(this.root(), key);
     }
 
-    indNodeByValue(node,value) {
+    //done 
+    contains(value) {
+        return this.findNodeByValue(this.root(), value);
+    }
+    //вспомогательный метод для contains
+    findNodeByValue(node, value) {
         if (node === null) {
-            return false   
+            return false
         }
         if (node.value === value) {
             return true;
         }
 
-        return this.indNodeByValue(node.left, value) || this.indNodeByValue(node.right, value);
+        return this.findNodeByValue(node.left, value) || this.findNodeByValue(node.right, value);
     }
 
     //doesn't work
@@ -100,37 +101,17 @@ class BinarySearchTree {
 
 const bst = new BinarySearchTree();
 bst.insert(2, 'two').insert(1, 'one').insert(3, 'three');
+bst.root();
 
+
+bst.search(1);
+bst.contains('three');
 /* 
 //examples
-
-
-bst.insert(2, 'two').insert(1, 'one').insert(3, 'three');
-
-//---2----
-//1-----3-
-//--------
-
-bst.root(); // 'two'
-
 bst.delete(1).delete(3);
-
-//---2----
-//---------
-//----------
-
-bst.root(); // 'two'
 
 bst.insert(1, 'one');
 bst.insert(3, 'three');
-
-//---2----
-//1-----3-
-//--------
-
-bst.search(1); // 'one'
-bst.contains('three'); // true
-
 
 //examples Advanse methods*
 
@@ -145,4 +126,3 @@ bst.traverse(false); // ['three', 'two', 'one']
 
 bst._root.key = 0;
 bst.verify(); //false */
-
