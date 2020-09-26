@@ -49,8 +49,24 @@ class BinarySearchTree {
 
     //doesn't work
     delete(key) {
-        
+        const nodeToDelete = this.findNodeByKey(this.rootNode, key);
+        const minNode = this.findMinNode(nodeToDelete.right);
+
+        nodeToDelete.key = minNode.key;
+        nodeToDelete.value = minNode.value;
+
+
+        this.rootNode = this.remove(this.root(), key);
         return this;
+    }
+
+    //вспомогательный метод для delete
+    findMinNode(node,parent) {
+        if (node.left) {
+            return node;
+        } else {
+            return this.findMinNode(node.left, node);
+        }
     }
 
     //вспомогательный метод для search
@@ -60,7 +76,7 @@ class BinarySearchTree {
         }
 
         if (node.key === key) {
-            return node.value;
+            return node;
         }
 
         if (node.key > key) {
@@ -70,7 +86,8 @@ class BinarySearchTree {
 
     //done
     search(key) {
-        return this.findNodeByKey(this.root(), key);
+        let nodeFromSearch = this.findNodeByKey(this.root(), key);
+        return nodeFromSearch.value;
     }
 
     //done 
@@ -106,15 +123,9 @@ bst.root();
 
 bst.search(1);
 bst.contains('three');
-/* 
-//examples
-bst.delete(1).delete(3);
-
-bst.insert(1, 'one');
-bst.insert(3, 'three');
 
 //examples Advanse methods*
-
+/* 
 bst.insert(2, 'two').insert(1, 'one').insert(3, 'three');
 
 //---2----
