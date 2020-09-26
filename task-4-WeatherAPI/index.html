@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>WeatherAPI</title>
+</head>
+
+<body>
+  <div class="wrapper">
+    <form class="box-of-inputs" method="GET">
+      <input class="input input-text input-City" type="text" placeholder="Enter your city here...">
+      <input class="input input-text input-Country" type="text" placeholder="Enter your country here...">
+      <input class="input submit" id="sumbit" type="submit" value="Submit">
+
+    </form>
+    <div class="about-weather">
+      <div class="about-weather__head">
+        <img class="weather-image" src="./img/sun-img.png" alt="weather">
+        <div class="head-info">
+          <h2 class="temperature">29&deg;C</h2>
+          <p class="name-city-and-country">Minsk, Belarus</p>
+        </div>
+      </div>
+      <div class="about-weather__body">
+        <div class="column1 column">
+          <p class="time column-p">Time: 18:09</p>
+          <p class="wind column-p">Wind: ESE</p>
+        </div>
+        <div class="column2 column">
+          <p class="feels-like column-p">Feels like: 28&deg;C</p>
+          <p class="speeds column-p">Speeds: 7km/h</p>
+        </div>
+        <div class="column3 column">
+          <p class="cloudy-or-sunny column-p">Today is sunny</p>
+          <p class="pressure column-p">Pressure: 1023 MB</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
